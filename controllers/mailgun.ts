@@ -1,23 +1,23 @@
 import axios from 'axios';
 import config from '../config/config';
+import { ReqBody, getApiParams } from '../utils/apiParams';
 
 // send email
-const sendMail = async (body: any) => {
+const sendMail = async (body: ReqBody) => {
   const apiKeyHeader = Buffer.from(`api:${config.mailgunKey}`).toString('base64');
   const headers = {
+    'Content-type': 'application/x-www-form-urlencoded',
     'Authorization': `Basic ${apiKeyHeader}`
   };
-  const params = new URLSearchParams();
-  params.append('from', `Chris Yoon <chrisjyoon@${config.mailgunDomain}>`);
-  params.append('to', body.to)
-  if (body.cc) {
-    params.append('cc', body.cc);
+  let params = {};
+  try {
+    params = getApiParams(
+      `Chris Yoon <chrisjyoon@${config.mailgunDomain}>`,
+      body
+    );
+  } catch (err) {
+    throw err;
   }
-  if (body.bcc) {
-    params.append('bcc', body.bcc);
-  }
-  params.append('subject', body.subject)
-  params.append('text', body.text)
   try {
     const resp = await axios({
       method: 'post',
@@ -26,9 +26,10 @@ const sendMail = async (body: any) => {
       data: params
     });
     console.log(resp.status);
-    console.log(resp.data);
+    return resp.data.message;
   } catch (err) {
-    console.error('error! : ', err);
+    console.error('err =', err.name);
+    throw new Error(err.response.data.message);
   }
 }
 
