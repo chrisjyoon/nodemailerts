@@ -4,7 +4,7 @@
   "description": "a simple nodejs service to send an email via mailgun or sendgrid",
   "main": "index.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register test/api.ts",
+    "test": "mocha -r ts-node/register test/**.ts",
     "start": "nodemon index.ts"
   },
   "repository": {
