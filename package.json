@@ -1,0 +1,20 @@
+{
+  "name": "nodemailerts",
+  "version": "1.0.0",
+  "description": "a simple nodejs service to send an email via mailgun or sendgrid",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisjyoon/nodemailerts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisjyoon/nodemailerts/issues"
+  },
+  "homepage": "https://github.com/chrisjyoon/nodemailerts#readme"
+}
