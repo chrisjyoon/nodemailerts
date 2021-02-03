@@ -6,7 +6,7 @@ import { inputValidate } from '../../utils/inputValidate';
 
 // send email
 const sendMail = async (body: ReqBody) => {
-  let params = <URLSearchParams>{};
+  let params : string | URLSearchParams;
   try {
     params = inputValidate(body, getApiParamsMailGun);
   } catch (err) {
