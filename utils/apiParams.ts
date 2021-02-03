@@ -1,5 +1,5 @@
 import validator from 'validator';
-import { customError } from './errorHandler';
+import { checkInputEmpty, customError } from './errorHandler';
 
 export interface ReqBody {
   to: string;
@@ -8,12 +8,14 @@ export interface ReqBody {
   subject: string;
   text: string;
 }
+interface Recipients {
+  to: object[];
+  cc?: object[];
+  bcc?: object[];
+}
 
 // emails can be comma-separated value
-const checkEmails = (params: URLSearchParams, key: string, emails: string) => {
-  if (emails === undefined || validator.isEmpty(emails)) {
-    throw customError(`${key} is required`, 'InputNotValid');
-  }
+const checkEmails = (key: string, emails: string) => {
   const arrEmail = emails.split(',');
   for (let i = 0; i < arrEmail.length; i++) {
     if (!validator.isEmail(arrEmail[i].trim())) {
@@ -21,21 +23,22 @@ const checkEmails = (params: URLSearchParams, key: string, emails: string) => {
       throw customError('Please check your email address', 'InputNotValid');
     }
   }
-  params.append(key, emails);
   return true;
 }
 
-const getApiParams = (from: string, body: ReqBody) => {
+const getApiParamsMailGun = (from: string, body: ReqBody) => {
   const params = new URLSearchParams();
   params.append('from', from);
 
   try {
-    checkEmails(params, 'to', body.to);
-    if (body.cc) {
-      checkEmails(params, 'cc', body.cc);
+    if (checkEmails('to', body.to)) {
+      params.append('to', body.to);
     }
-    if (body.bcc) {
-      checkEmails(params, 'bcc', body.bcc);
+    if (!checkInputEmpty('cc', body.cc, true) && checkEmails('cc', body.cc)) {
+      params.append('cc', body.cc);
+    }
+    if (!checkInputEmpty('bcc', body.cc, true) && checkEmails('bcc', body.cc)) {
+      params.append('bcc', body.bcc);
     }
   } catch (err) {
     throw err;
@@ -45,7 +48,38 @@ const getApiParams = (from: string, body: ReqBody) => {
   return params;
 }
 
+const getApiParamsSendGrid = (from: string, body: ReqBody) => {
+  const params = {
+    personalizations: [] as object[],
+    from: { email: from },
+    subject: body.subject,
+    content: [
+      {
+        type: 'text/plain',
+        value: body.text,
+      },
+    ],
+  };
+  try {
+    const recipients = {} as Recipients;
+    if (!checkInputEmpty('to', body.to) && checkEmails('to', body.to)) {
+      recipients.to = body.to.split(',').map(email => ({email: email.trim()}));
+    }
+    if (!checkInputEmpty('cc', body.cc, true) && checkEmails('cc', body.cc)) {
+      recipients.cc = body.cc.split(',').map(email => ({email: email.trim()}));
+    }
+    if (!checkInputEmpty('bcc', body.bcc, true) && checkEmails('bcc', body.bcc)) {
+      recipients.bcc = body.bcc.split(',').map(email => ({email: email.trim()}));
+    }
+    params.personalizations.push(recipients);
+  } catch (err) {
+    throw err;
+  }
+  return JSON.stringify(params);
+}
+
 
 export {
-  getApiParams,
+  getApiParamsMailGun,
+  getApiParamsSendGrid
 }

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import config from '../config/config';
 import { checkInputEmpty } from '../utils/errorHandler';
-import { ReqBody, getApiParams } from '../utils/apiParams';
+import { ReqBody, getApiParamsMailGun } from '../utils/apiParams';
 
 // send email
 const sendMail = async (body: ReqBody) => {
   try {
     checkInputEmpty('api key', config.mailgunKey);
-    checkInputEmpty('base url', config.mailgunBaseUrl);
+    checkInputEmpty('from email', config.mailgunFromEmail);
   } catch (err) {
     throw err;
   }
@@ -18,7 +18,7 @@ const sendMail = async (body: ReqBody) => {
   };
   let params = {};
   try {
-    params = getApiParams(
+    params = getApiParamsMailGun(
       `Chris Yoon <${config.mailgunFromEmail}>`,
       body
     );

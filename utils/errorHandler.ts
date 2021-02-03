@@ -7,7 +7,10 @@ const customError = (mesg: string, name: string) => {
   return error;
 }
 
-const checkInputEmpty = (key: string, val: string) => {
+const checkInputEmpty = (key: string, val: string, isOptional = false) => {
+  if (isOptional) {
+    return (val === undefined || validator.isEmpty(val));
+  }
   if (val === undefined || validator.isEmpty(val)) {
     throw customError(`${key} is required`, 'InputNotValid');
   }
