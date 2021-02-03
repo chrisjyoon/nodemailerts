@@ -12,7 +12,9 @@ describe('GET /', () => {
 
 describe('POST /email', () => {
   let data = {
-    subject: 'This is from supertest mocha'
+    to: 'chrisjyoon@gmail.com',
+    subject: 'This is from supertest mocha',
+    text: 'email sending test from mocha'
   };
   it('respond with 200 sent', (done) => {
     request(app)

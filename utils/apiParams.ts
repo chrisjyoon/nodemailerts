@@ -1,4 +1,5 @@
 import validator from 'validator';
+import { customError } from './errorHandler';
 
 export interface ReqBody {
   to: string;
@@ -7,13 +8,12 @@ export interface ReqBody {
   subject: string;
   text: string;
 }
-const customError = (mesg: string, name: string) => {
-  const error = new Error(mesg);
-  error.name = name;
-  return error;
-}
+
 // emails can be comma-separated value
 const checkEmails = (params: URLSearchParams, key: string, emails: string) => {
+  if (emails === undefined || validator.isEmpty(emails)) {
+    throw customError(`${key} is required`, 'InputNotValid');
+  }
   const arrEmail = emails.split(',');
   for (let i = 0; i < arrEmail.length; i++) {
     if (!validator.isEmail(arrEmail[i].trim())) {
