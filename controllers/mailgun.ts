@@ -1,13 +1,15 @@
 import axios from 'axios';
 import config from '../config/config';
-import { isInputEmpty, customError } from '../utils/errorHandler';
+import { checkInputEmpty } from '../utils/errorHandler';
 import { ReqBody, getApiParams } from '../utils/apiParams';
 
 // send email
 const sendMail = async (body: ReqBody) => {
-  
-  if (isInputEmpty('apiKey', config.mailgunKey)) {
-    throw customError('apiKey is required', 'InputNotValid');
+  try {
+    checkInputEmpty('api key', config.mailgunKey);
+    checkInputEmpty('base url', config.mailgunBaseUrl);
+  } catch (err) {
+    throw err;
   }
   const apiKeyHeader = Buffer.from(`api:${config.mailgunKey}`).toString('base64');
   const headers = {

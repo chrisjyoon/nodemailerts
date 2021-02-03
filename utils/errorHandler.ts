@@ -7,12 +7,13 @@ const customError = (mesg: string, name: string) => {
   return error;
 }
 
-const isInputEmpty = (key: string, val: string) => {
-  return (val === undefined || validator.isEmpty(val));
+const checkInputEmpty = (key: string, val: string) => {
+  if (val === undefined || validator.isEmpty(val)) {
+    throw customError(`${key} is required`, 'InputNotValid');
+  }
 }
-
 
 export {
   customError,
-  isInputEmpty,
+  checkInputEmpty,
 }
