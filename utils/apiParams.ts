@@ -8,6 +8,8 @@ export interface ReqBody {
   subject: string;
   text: string;
 }
+export type ApiParamsMailGun = (from: string, body: ReqBody) => URLSearchParams;
+export type ApiParamsSendGrid = (from: string, body: ReqBody) => string;
 interface Recipients {
   to: object[];
   cc?: object[];
@@ -19,7 +21,6 @@ const checkEmails = (key: string, emails: string) => {
   const arrEmail = emails.split(',');
   for (let i = 0; i < arrEmail.length; i++) {
     if (!validator.isEmail(arrEmail[i].trim())) {
-      console.log('arrEmail[i] = ', arrEmail[i]);
       throw customError('Please check your email address', 'InputNotValid');
     }
   }
@@ -31,13 +32,13 @@ const getApiParamsMailGun = (from: string, body: ReqBody) => {
   params.append('from', from);
 
   try {
-    if (checkEmails('to', body.to)) {
+    if (!checkInputEmpty('to', body.to) && checkEmails('to', body.to)) {
       params.append('to', body.to);
     }
     if (!checkInputEmpty('cc', body.cc, true) && checkEmails('cc', body.cc)) {
       params.append('cc', body.cc);
     }
-    if (!checkInputEmpty('bcc', body.cc, true) && checkEmails('bcc', body.cc)) {
+    if (!checkInputEmpty('bcc', body.bcc, true) && checkEmails('bcc', body.bcc)) {
       params.append('bcc', body.bcc);
     }
   } catch (err) {
