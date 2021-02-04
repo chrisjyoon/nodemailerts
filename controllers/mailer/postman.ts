@@ -14,7 +14,7 @@ export const post = async(url: string, headers: HttpHeader, data: URLSearchParam
       data
     });
     if (resp.data) {
-      return `[${resp.status}] resp.data.message`;
+      return `[${resp.status}] ${resp.data.message}`;
     }
     return `[${resp.status}]Sent success`;
   } catch (err) {

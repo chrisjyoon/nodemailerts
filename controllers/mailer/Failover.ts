@@ -24,7 +24,7 @@ export class Failover {
 
   async send(mailer: Mailer) {
     try {
-      await mailer.send();
+      return await mailer.send();
     } catch (err) {
       throw err;
     }
