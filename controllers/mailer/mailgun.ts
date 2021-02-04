@@ -2,7 +2,7 @@ import config from '../../config/config';
 import { ReqBody, getApiParamsMailGun } from '../../utils/apiParams';
 import postman from './postman';
 import { HttpHeader } from './postman';
-import { inputValidate } from '../../utils/inputValidate';
+import { inputValidate } from '../../utils/PostHelper';
 
 // send email
 const sendMail = async (body: ReqBody) => {

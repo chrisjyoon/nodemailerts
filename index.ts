@@ -8,6 +8,10 @@ import home from './controllers/home';
 import email from './controllers/email';
 
 const app = express();
+if (config.port === undefined) {
+  console.error('Please check your .env file!');
+  process.exit();
+}
 const PORT = config.port;
 
 app.use(morgan('dev'));

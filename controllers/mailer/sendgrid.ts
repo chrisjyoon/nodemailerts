@@ -1,6 +1,6 @@
 import config from '../../config/config';
 import { ReqBody, getApiParamsSendGrid } from '../../utils/apiParams';
-import { inputValidate } from '../../utils/inputValidate';
+import { inputValidate } from '../../utils/PostHelper';
 import postman from './postman';
 import { HttpHeader } from './postman';
 
