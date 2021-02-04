@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { customError } from '../../utils/errorHandler';
 
 export interface HttpHeader {
   'Content-Type': string;
@@ -12,25 +13,19 @@ export const post = async(url: string, headers: HttpHeader, data: URLSearchParam
       headers,
       data
     });
-    console.log(resp.status);
-    console.log(resp.data);
     if (resp.data) {
       return `[${resp.status}] resp.data.message`;
     }
     return `[${resp.status}]Sent success`;
   } catch (err) {
     if (err.response) {
-      console.log('postman got Error!!!');
-      console.log('postman got Error!!!');
-      console.log('postman got Error!!!');
-      console.log(err.response.status);
-      console.log(err.response.data);
-      throw new Error(err.response.data.message);
-    } else if (err.request) {
-      console.log(err.request);
-    } else {
-      console.log('Error', err.message);
+      throw customError(
+        err.response.data.errors && err.response.data.errors.length > 0
+        ? err.response.data.errors[0].message
+        : err.response.data.message,
+        err.response.status
+      );
     }
-    throw new Error(err.message);
+    throw customError(err.message, 'Post Error');
   }
 }

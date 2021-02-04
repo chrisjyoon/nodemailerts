@@ -1,9 +1,15 @@
 import config from '../config/config';
 import { checkInputEmpty, checkEmails } from './errorHandler';
-import { ReqBody, ApiParamsMailGun, ApiParamsSendGrid } from './apiParams';
 import { MailgunParam } from './MailgunParam';
 import { SendgridParams } from './SendgridParam';
 
+export interface ReqBody {
+  to: string;
+  cc: string;
+  bcc: string;
+  subject: string;
+  content: string;
+}
 export class PostHelper {
   checkEnv(): void {
     try {
@@ -21,7 +27,6 @@ export class PostHelper {
       !checkInputEmpty('To', reqBody.to) && checkEmails(reqBody.to);
       !checkInputEmpty('Cc', reqBody.cc, true) && checkEmails(reqBody.cc);
       !checkInputEmpty('Bcc', reqBody.bcc, true) && checkEmails(reqBody.bcc);
-      
       checkInputEmpty('Subject', reqBody.subject);
     } catch (err) {
       throw err;

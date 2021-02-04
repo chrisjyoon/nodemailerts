@@ -1,25 +1,20 @@
 import express from 'express';
 import { PostHelper } from '../utils/PostHelper';
-import { Mailer } from './mailer/Mailer';
-
+import { Failover } from './mailer/Failover';
 
 const router = express.Router();
 
 router.post('/email', async (req, res) => {
-  console.log('email post called', req.body);
   try {
     const postHelper = new PostHelper();
     postHelper.checkEnv();
     postHelper.checkInput(req.body);
-    const mailer = new Mailer();
-    const resp = await mailer.send(req.body);
+
+    const failover = new Failover();
+    const resp = await failover.failOverSend(req.body);
     res.status(200).json(resp);
   } catch (err) {
-    console.log(`[${err.name}] ${err.message}`);
-    if (err.name === 'InputNotValid') {
-      res.json(err.message);
-      return;
-    }
+    res.json(`[${err.name}] ${err.message}`);
   }
 });
 
