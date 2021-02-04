@@ -6,7 +6,7 @@ export interface ReqBody {
   cc: string;
   bcc: string;
   subject: string;
-  text: string;
+  content: string;
 }
 export type ApiParamsMailGun = (from: string, body: ReqBody) => URLSearchParams;
 export type ApiParamsSendGrid = (from: string, body: ReqBody) => string;
@@ -16,16 +16,6 @@ interface Recipients {
   bcc?: object[];
 }
 
-// emails can be comma-separated value
-const checkEmails = (key: string, emails: string) => {
-  const arrEmail = emails.split(',');
-  for (let i = 0; i < arrEmail.length; i++) {
-    if (!validator.isEmail(arrEmail[i].trim())) {
-      throw customError('Please check your email address', 'InputNotValid');
-    }
-  }
-  return true;
-}
 
 const getApiParamsMailGun = (from: string, body: ReqBody) => {
   const params = new URLSearchParams();

@@ -4,7 +4,7 @@ export interface HttpHeader {
   'Content-Type': string;
   Authorization: string;
 }
-const post = async(url: string, headers: HttpHeader, data: URLSearchParams | string) => {
+export const post = async(url: string, headers: HttpHeader, data: URLSearchParams | string) => {
   try {
     const resp = await axios({
       method: 'post',
@@ -14,10 +14,15 @@ const post = async(url: string, headers: HttpHeader, data: URLSearchParams | str
     });
     console.log(resp.status);
     console.log(resp.data);
-  
-    return resp.data.message;
+    if (resp.data) {
+      return `[${resp.status}] resp.data.message`;
+    }
+    return `[${resp.status}]Sent success`;
   } catch (err) {
     if (err.response) {
+      console.log('postman got Error!!!');
+      console.log('postman got Error!!!');
+      console.log('postman got Error!!!');
       console.log(err.response.status);
       console.log(err.response.data);
       throw new Error(err.response.data.message);
@@ -28,8 +33,4 @@ const post = async(url: string, headers: HttpHeader, data: URLSearchParams | str
     }
     throw new Error(err.message);
   }
-}
-
-export default {
-  post
 }

@@ -1,29 +1,22 @@
 import config from '../../config/config';
-import { ReqBody, getApiParamsSendGrid } from '../../utils/apiParams';
-import { inputValidate } from '../../utils/PostHelper';
-import postman from './postman';
+import { post } from './postman';
 import { HttpHeader } from './postman';
 
-// send email
-const sendMail = async (body: ReqBody) => {
-  let params: string | URLSearchParams;
-  try {
-    params = inputValidate(body, getApiParamsSendGrid);
-  } catch (err) {
-    throw err;
-  }
+export class Sendgrid {
+  private headers;
 
-  try {
-    const headers = <HttpHeader>{
+  constructor() {
+    this.headers = <HttpHeader>{
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${config.sendgridKey}`
     };
-    postman.post(config.sendgridBaseUrl, headers, params);
-  } catch (err) {
-    throw err;
   }
-}
 
-export default {
-  sendMail
+  async send(postParams: string): Promise<string> {
+    try {
+      return await post(config.sendgridBaseUrl, this.headers, postParams);
+    } catch (err) {
+      throw err;
+    }
+  }
 }

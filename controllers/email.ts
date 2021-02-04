@@ -10,25 +10,15 @@ router.post('/email', async (req, res) => {
   try {
     const postHelper = new PostHelper();
     postHelper.checkEnv();
+    postHelper.checkInput(req.body);
     const mailer = new Mailer();
-    console.log(mailer);
-    // const resp = await mailgun.sendMail(req.body);
-    // res.status(200).json(resp);
-    res.status(200).json(mailer);
+    const resp = await mailer.send(req.body);
+    res.status(200).json(resp);
   } catch (err) {
     console.log(`[${err.name}] ${err.message}`);
     if (err.name === 'InputNotValid') {
       res.json(err.message);
       return;
-    }
-    try {
-      const mailer = new Mailer();
-      console.log(mailer);
-      // const resp = await sendgrid.sendMail(req.body);
-      // res.status(200).json(resp);
-    } catch (err) {
-      console.log(`[${err.name}] ${err.message}`);
-      res.json(err.message);
     }
   }
 });
