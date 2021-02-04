@@ -7,7 +7,7 @@ interface Recipients {
   bcc?: object[];
 }
 
-export class SendgridParams extends CustomParam  {
+export class SendgridParam extends CustomParam  {
   constructor(from: string, reqBody: ReqBody) {
     super(from, reqBody);
   }
@@ -27,10 +27,10 @@ export class SendgridParams extends CustomParam  {
     try {
       const recipients = {} as Recipients;
       recipients.to = this.to.split(',').map(email => ({email: email.trim()}));
-      if (this.isValid(this.cc)) {
+      if (this.cc !== undefined && this.isValid(this.cc)) {
         recipients.cc = this.cc.split(',').map(email => ({email: email.trim()}));
       }
-      if (this.isValid(this.bcc)) {
+      if (this.bcc !== undefined && this.isValid(this.bcc)) {
         recipients.bcc = this.bcc.split(',').map(email => ({email: email.trim()}));
       }
       params.personalizations.push(recipients);

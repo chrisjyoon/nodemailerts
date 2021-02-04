@@ -1,12 +1,12 @@
 import config from '../config/config';
 import { checkInputEmpty, checkEmails } from './errorHandler';
 import { MailgunParam } from './MailgunParam';
-import { SendgridParams } from './SendgridParam';
+import { SendgridParam } from './SendgridParam';
 
 export interface ReqBody {
   to: string;
-  cc: string;
-  bcc: string;
+  cc?: string;
+  bcc?: string;
   subject: string;
   content: string;
 }
@@ -37,7 +37,7 @@ export class PostHelper {
     return mailgunParam.makeParams();
   }
   makeParamsSendGrid(reqBody: ReqBody): string {
-    const sendgridParam = new SendgridParams(config.mailgunFromEmail, reqBody);
+    const sendgridParam = new SendgridParam(config.mailgunFromEmail, reqBody);
     return sendgridParam.makeParams();
   }
 }

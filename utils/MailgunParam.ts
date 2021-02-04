@@ -10,10 +10,10 @@ export class MailgunParam extends CustomParam {
     const params = new URLSearchParams();
     params.append('from', this.from);
     params.append('to', this.to);
-    if (this.isValid(this.cc)) {
+    if (this.cc !== undefined && this.isValid(this.cc)) {
       params.append('cc', this.cc);
     }
-    if (this.isValid(this.bcc)) {
+    if (this.bcc !== undefined && this.isValid(this.bcc)) {
       params.append('bcc', this.bcc);
     }
     params.append('subject', this.subject);

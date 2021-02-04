@@ -6,7 +6,7 @@ export const customError = (mesg: string, name: string) => {
   return error;
 }
 
-export const checkInputEmpty = (key: string, val: string, isOptional = false) => {
+export const checkInputEmpty = (key: string, val: string | undefined, isOptional = false) => {
   if (isOptional) {
     return (val === undefined || validator.isEmpty(val));
   }
@@ -16,7 +16,10 @@ export const checkInputEmpty = (key: string, val: string, isOptional = false) =>
 }
 
 // emails can be comma-separated value
-export const checkEmails = (emails: string) => {
+export const checkEmails = (emails: string | undefined) => {
+  if (emails === undefined) {
+    throw customError('Please check your email address', 'InputNotValid');
+  }
   const arrEmail = emails.split(',');
   for (let i = 0; i < arrEmail.length; i++) {
     if (!validator.isEmail(arrEmail[i].trim())) {

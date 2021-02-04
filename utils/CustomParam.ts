@@ -4,8 +4,8 @@ import { ReqBody } from './PostHelper';
 export class CustomParam {
   protected from: string;
   protected to: string;
-  protected cc: string;
-  protected bcc: string;
+  protected cc?: string;
+  protected bcc?: string;
   protected subject: string;
   protected content: string;
 
@@ -15,10 +15,10 @@ export class CustomParam {
     this.cc = reqBody.cc;
     this.bcc = reqBody.bcc;
     this.subject = reqBody.subject;
-    this.content = reqBody.content;
+    this.content = reqBody.content || '';
   }
 
-  protected isValid(item: string) {
+  protected isValid(item: string | undefined) {
     return item !== undefined && !validator.isEmpty(item);
   }
 }
