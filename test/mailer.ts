@@ -3,7 +3,6 @@ import config from '../config/config';
 import { MailgunParam } from '../utils/MailgunParam';
 import { SendgridParam } from '../utils/SendgridParam';
 import { ReqBody } from '../utils/PostHelper';
-import { HttpHeader, post } from '../controllers/mailer/postman';
 import { Mailgun } from '../controllers/mailer/Mailgun';
 import { Sendgrid } from '../controllers/mailer/Sendgrid';
 import { Failover } from '../controllers/mailer/Failover';
