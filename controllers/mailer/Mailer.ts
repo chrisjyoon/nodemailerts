@@ -1,4 +1,4 @@
-import { ReqBody, PostHelper } from "../../utils/postHelper";
+import { ReqBody, PostHelper } from "../../utils/PostHelper";
 import { HttpHeader } from "./postman";
 
 export interface Mailer {
