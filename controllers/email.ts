@@ -2,9 +2,9 @@ import express from 'express';
 import { PostHelper } from '../utils/PostHelper';
 import { Failover } from './mailer/Failover';
 
-const router = express.Router();
+export const email = express.Router();
 
-router.post('/email', async (req, res) => {
+email.post('/email', async (req, res) => {
   try {
     const postHelper = new PostHelper();
     postHelper.checkEnv();
@@ -17,6 +17,3 @@ router.post('/email', async (req, res) => {
     res.json(`[${err.name}] ${err.message}`);
   }
 });
-
-
-export default router;
