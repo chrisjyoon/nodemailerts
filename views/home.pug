@@ -1,0 +1,42 @@
+head
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+block content
+  .section
+    .containers
+      .container
+        h3 Welcome to mailer service using Express + Typescript Demo
+        p Please check <a href="https://github.com/chrisjyoon/nodemailerts">README</a>
+        br
+        form(method='POST', action='/submit')
+          .field
+            label.label *Email:
+            .control
+              input.input(name='to', type='text', placeholder='to email', required)
+          .field
+            label.label CC:
+            .control
+              input.input(name='cc', type='text', placeholder='cc email')
+          .field
+            label.label BCC:
+            .control
+              input.input(name='bcc', type='text', placeholder='bcc email')
+          .field
+            label.label *Subject:
+            .control
+              input.input(name='subject', type='text', placeholder='subject',
+                value="node express mailer test", required)
+          .field
+            label.label *Subject:
+            .control
+              input.input(name='content', type='hidden',
+                value="hello! this is from node expres typescript mailer demo")
+          .control
+            button.button.is-primary Submit
+  
+  //- //     </div>
+  //- //     <p></p>
+  //- //       <input type="hidden" name="content" value="Hello email test">
+  //- //       <input type="submit" value="OK">
+  //- //   </form>
+  //- //   <p>This will send simple test email to above email address
+  //- //   using mailgun or Sendgrid api
