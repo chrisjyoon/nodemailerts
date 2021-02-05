@@ -26,6 +26,7 @@ export const post = async(url: string, headers: HttpHeader, data: URLSearchParam
         err.response.status
       );
     }
+    console.log('err.message = ', err.message);
     throw customError(err.message, 'Post Error');
   }
 }

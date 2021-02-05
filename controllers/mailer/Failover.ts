@@ -4,17 +4,21 @@ import { Mailgun } from './Mailgun';
 import { Sendgrid } from './Sendgrid';
 
 export class Failover {
+  // get two mailer classes
   mailers = [Mailgun, Sendgrid];
+  index = 0;
 
   constructor() {}
 
   async failOverSend(reqBody: ReqBody) {
-    for (let i = 0; i < this.mailers.length; i++) {
-      const mailer = this.mailers[i];
+    while (this.index < this.mailers.length) {
+      const mailer = this.mailers[this.index];
+      console.log('mailer = ', mailer);
       try {
+        // create each mailer class instance
         return await this.send(new mailer(reqBody));
       } catch (err) {
-        if (i === this.mailers.length - 1) {
+        if (++this.index === this.mailers.length) {
           throw err;
         }
         console.log('Fail Over to the next mailer! => ', mailer);
