@@ -21,7 +21,7 @@ export class Failover {
         if (++this.index === this.mailers.length) {
           throw err;
         }
-        console.log('Fail Over to the next mailer! => ', mailer);
+        console.log('Fail Over to the next mailer!');
       }
     }
   }
