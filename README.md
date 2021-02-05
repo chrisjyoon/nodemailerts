@@ -21,10 +21,18 @@ SENDGRID_FROM_EMAIL=account@yourdomain
 ```
 
 
-## install & run
+## Install & run
 
 ```
 npm install (for the first time)
 npm install -g yarn (in case yarn is not installed)
 yarn start
 ```
+
+## Dev notes
+[Requirements]
+ - create a service to send emails using two providers(mailgun and SendGrid).
+ - should provide an abstraction and failover between two providers.
+ - should provide one or more REST api to send an email.
+ - no third party library should be used to interface with two providers.
+ 
