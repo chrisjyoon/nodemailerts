@@ -34,9 +34,8 @@ yarn start
 curl --request POST \
 --url localhost:8000/email \
 --header 'Content-Type: application/json' \
---data '{"to": "toemail@toemail.com, otheremail@toemail.com", "subject": "from CURL", "content": "CURL is okay"}'
+--data '{"to": "toemail@toemail.com, otheremail@toemail.com", "cc": "toemail@toemail.com", "subject": "from CURL", "content": "CURL is okay"}'
 ```
-* cc and bcc are optional
 
 [Postman]
 - make a new post request and set the url as 'localhost:8000/email'
@@ -50,7 +49,8 @@ curl --request POST \
     "content": "this is test email from Chris to test CC and Bcc!"
 }
 ```
-* cc and bcc are optional
+* cc and bcc are optional.
+* email addresses should be separated with comma if there are more than one.
 
 ## Dev notes
 [Requirements]
