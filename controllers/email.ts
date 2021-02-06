@@ -12,7 +12,7 @@ email.post('/email', async (req, res) => {
 
     const failover = new Failover();
     const resp = await failover.failOverSend(req.body);
-    res.status(200).json(resp);
+    res.status(resp.status).json(`[${resp.status}] ${resp.message}`);
   } catch (err) {
     res.json(`[${err.name}] ${err.message}`);
   }

@@ -1,9 +1,9 @@
-import { ReqBody, PostHelper } from "../../utils/PostHelper";
+import { ResBody, PostHelper } from "../../utils/PostHelper";
 import { HttpHeader } from "./postman";
 
 export interface Mailer {
   headers: HttpHeader;
-  send(): Promise<string>;
+  send(): Promise<ResBody>;
 }
 export class Mailer {
   protected postHelper: PostHelper;

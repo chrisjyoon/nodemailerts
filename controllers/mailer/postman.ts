@@ -14,9 +14,15 @@ export const post = async(url: string, headers: HttpHeader, data: URLSearchParam
       data
     });
     if (resp.data) {
-      return `[${resp.status}] ${resp.data.message}`;
+      return {
+        status: resp.status,
+        message: resp.data.message
+      };
     }
-    return `[${resp.status}]Sent success`;
+    return {
+      status: resp.status,
+      message: 'Sent successfully'
+    }
   } catch (err) {
     if (err.response) {
       throw customError(

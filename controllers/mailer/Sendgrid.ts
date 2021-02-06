@@ -1,5 +1,5 @@
 import config from '../../config/config';
-import { ReqBody } from '../../utils/PostHelper';
+import { ReqBody, ResBody } from '../../utils/PostHelper';
 import { Mailer } from './Mailer';
 import { post, HttpHeader } from './postman';
 
@@ -15,7 +15,7 @@ export class Sendgrid extends Mailer implements Mailer {
     this.postParams = this.postHelper.makeParamsSendGrid(reqBody);
   }
 
-  async send(): Promise<string> {
+  async send(): Promise<ResBody> {
     try {
       return await post(config.sendgridBaseUrl, this.headers, this.postParams);
     } catch (err) {

@@ -70,9 +70,15 @@ describe('Failover', () => {
   it('should failover to next', async () => {
     const failover = new Failover();
     // to test failover, deliberately give a wrong api key for mailgun
-    config.mailgunKey += 'a';
+    if (failover.mailers[failover.index].name === 'Mailgun') {
+      config.mailgunKey += 'a';
+    } else {
+      config.sendgridKey += 'a';
+    }
     const resp = await failover.failOverSend(reqBody);
-    // index should be 1
-    expect(failover.index).to.equal(1);
-  });
+    console.log('final resp = ', resp);
+    // tried count should be 1
+    expect(failover.tried).to.equal(1);
+    expect(resp.status).to.be.oneOf([200, 202]);
+  }).timeout(0);
 });
