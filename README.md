@@ -28,11 +28,34 @@ npm install (for the first time)
 npm install -g yarn (in case yarn is not installed)
 yarn start
 ```
+## How to test
+[Curl]
+```
+curl --request POST \
+--url localhost:8000/email \
+--header 'Content-Type: application/json' \
+--data '{"to": "toemail@toemail.com, otheremail@toemail.com", "subject": "from CURL", "content": "CURL is okay"}'
+```
+* cc and bcc are optional
+
+[Postman]
+- make a new post request and set the url as 'localhost:8000/email'
+- select body tab and choose raw & JSON type and put body like this.
+```
+{
+    "subject": "new aws dns",
+    "to": "toemail@toemail.com, otheremail@toemail.com",
+    "cc": "cc@toemail.com",
+    "bcc": "bcc@toemail.com",
+    "content": "this is test email from Chris to test CC and Bcc!"
+}
+```
+* cc and bcc are optional
 
 ## Dev notes
 [Requirements]
  - create a service to send emails using two providers(mailgun and SendGrid).
  - should provide an abstraction and failover between two providers.
  - should provide one or more REST api to send an email.
- - no third party library should be used to interface with two providers.
+ - no third party library should be used to integrate with two providers.
  
