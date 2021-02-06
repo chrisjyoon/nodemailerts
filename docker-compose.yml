@@ -1,0 +1,7 @@
+version: '1'
+services:
+  mailer:
+    build: .
+    ports:
+     - "8000:8000"
+     
