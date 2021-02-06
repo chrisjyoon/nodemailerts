@@ -76,4 +76,5 @@ curl --request POST \
  - Each two mail provider inherit the Mailer class and implements the Mailer interface.
  - So FailoverSender class doesn't need to have two separate variables for each mailer. Instead it has one mailer variable which can represent Mailgun or SendGrid class. If one of them failed then immediately switch to other one.
  - Email controller should only have FailoverSender class to send an email, it doesn't need to know about which mailer is being used.
+ - I tried to keep the principal single responsibility for each class.
  

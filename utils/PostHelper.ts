@@ -26,7 +26,7 @@ export class PostHelper {
       throw err;
     }
   }
-checkInput(reqBody: ReqBody): void {
+  checkInput(reqBody: ReqBody): void {
     try {
       !checkInputEmpty('To', reqBody.to) && checkEmails(reqBody.to);
       !checkInputEmpty('Cc', reqBody.cc, true) && checkEmails(reqBody.cc);
