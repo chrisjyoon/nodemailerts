@@ -59,11 +59,13 @@ curl --request POST \
  - should provide an abstraction and failover between two providers.
  - should provide one or more REST api to send an email.
  - no third party library should be used to integrate with two providers.
+ 
 [Libraries]
  - I chose node + express + typescript.
  - body-parser is essential to parse the client's post request parameters.
  - validator is used to check the enviroment values and the email addresses from the client.
  - axios is used only as a simple http client to send a post reqeust to the providers.
+
 [Abstraction & Failover]
  - I used the class and interface both named 'Mailer' for the abstraction. 
  - Each two mail provider inherit the Mailer class and implements the Mailer interface.
