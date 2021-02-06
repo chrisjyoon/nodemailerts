@@ -23,11 +23,16 @@ SENDGRID_FROM_EMAIL=account@yourdomain
 
 
 ## Install & run
-
+[without Docker]
 ```
 npm install (for the first time)
 npm install -g yarn (in case yarn is not installed)
 yarn start
+```
+[with Docker]
+- install docker and docker-compose if you don't have : https://docs.docker.com/engine/install/
+```
+docker-compse up mailer
 ```
 ## How to test
 [Curl]
