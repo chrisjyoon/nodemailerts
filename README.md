@@ -58,6 +58,8 @@ curl --request POST \
 * cc and bcc are optional.
 * email addresses should be separated with comma if there are more than one.
 
+![alt postman](https://github.com/chrisjyoon/nodemailerts/blob/master/screenshots/postman.png)
+
 ## Dev notes
 [Requirements]
  - create a service to send emails using two providers(mailgun and SendGrid).
