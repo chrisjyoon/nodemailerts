@@ -1,4 +1,4 @@
-# nodemailerts
+# nodemailerts(node + express + typescript)
 a simple nodejs service to send an email via mailgun or sendgrid
 
 * demo : http://chrisyoon.ml:8000/
@@ -6,7 +6,7 @@ a simple nodejs service to send an email via mailgun or sendgrid
 ## Prerequisites
 - You have to have node.js installed on your machine. (https://nodejs.org/en/)
 - You have to set up your account for mailgun(https://www.mailgun.com/) and SendGrid(https://sendgrid.com/)
-- Ideally you'd better have your own doamin for sending email. DNS records setup would be needed for both services.
+- Ideally you'd better have your own domain for sending email. DNS records setup would be needed for both services.
 - You should have a valid email for the from email (account@your.domain)
 - .env file : this file is not included in the git repo. You have to create your own .env file like:
 (you can copy .env.example file)
