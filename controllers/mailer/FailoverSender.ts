@@ -3,7 +3,7 @@ import { Mailer } from './Mailer';
 import { Mailgun } from './Mailgun';
 import { Sendgrid } from './Sendgrid';
 
-export class Failover {
+export class FailoverSender {
   // get two mailer classes
   readonly mailers = [Mailgun, Sendgrid];
   index: number;

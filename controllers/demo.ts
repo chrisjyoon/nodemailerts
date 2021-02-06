@@ -1,6 +1,6 @@
 import express from 'express';
 import { PostHelper } from '../utils/PostHelper';
-import { Failover } from './mailer/Failover';
+import { FailoverSender } from './mailer/FailoverSender';
 
 export const demo = express.Router();
 
@@ -10,7 +10,7 @@ demo.post('/submit', async (req, res) => {
     postHelper.checkEnv();
     postHelper.checkInput(req.body);
 
-    const failover = new Failover();
+    const failover = new FailoverSender();
     await failover.failOverSend(req.body);
     res.redirect('/');
   } catch (err) {

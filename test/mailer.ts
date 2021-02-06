@@ -5,7 +5,7 @@ import { SendgridParam } from '../utils/SendgridParam';
 import { ReqBody } from '../utils/PostHelper';
 import { Mailgun } from '../controllers/mailer/Mailgun';
 import { Sendgrid } from '../controllers/mailer/Sendgrid';
-import { Failover } from '../controllers/mailer/Failover';
+import { FailoverSender } from '../controllers/mailer/FailoverSender';
 
 const reqBody: ReqBody = {
   to: 'chrisjyoon@gmail.com, jyma7503@gmail.com',
@@ -61,14 +61,14 @@ describe('Mailer', () => {
 
 describe('Failover', () => {
   it('should have two mailers', (done) => {
-    const failover = new Failover();
+    const failover = new FailoverSender();
     expect(failover).to.have.property('mailers');
     expect(failover.mailers).to.be.an('array').that.includes(Mailgun);
     expect(failover.mailers).to.be.an('array').that.includes(Sendgrid);
     done();
   });
   it('should failover to next', async () => {
-    const failover = new Failover();
+    const failover = new FailoverSender();
     // to test failover, deliberately give a wrong api key for mailgun
     if (failover.mailers[failover.index].name === 'Mailgun') {
       config.mailgunKey += 'a';
