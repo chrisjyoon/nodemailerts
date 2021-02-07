@@ -1,7 +1,7 @@
 # nodemailerts(node + express + typescript)
 a simple nodejs service to send an email via mailgun or sendgrid
 
-* demo : http://chrisyoon.ml:8000/
+* demo : http://chrisyoon.ml/
 
 ## Prerequisites
 - You have to have node.js installed on your machine. (https://nodejs.org/en/)
