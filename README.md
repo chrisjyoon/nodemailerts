@@ -27,7 +27,7 @@ SENDGRID_FROM_EMAIL=account@yourdomain
 ```
 npm install (for the first time)
 npm install -g yarn (in case yarn is not installed)
-yarn start
+yarn start or npm start
 ```
 [with Docker]
 - install docker and docker-compose if you don't have : https://docs.docker.com/engine/install/
@@ -62,7 +62,7 @@ curl --request POST \
 
 ## Dev notes
 [Requirements]
- - create a service to send emails using two providers(mailgun and SendGrid).
+ - create a service to send emails using two providers(Mailgun and SendGrid).
  - should provide an abstraction and failover between two providers.
  - should provide one or more REST api to send an email.
  - no third party library should be used to integrate with two providers.
@@ -75,7 +75,7 @@ curl --request POST \
 
 [Abstraction & Failover]
  - I used the class and interface both named 'Mailer' for the abstraction. 
- - Each two mail provider inherit the Mailer class and implements the Mailer interface.
+ - And each two mail provider(Mailgun and SendGrid) inherits the Mailer class and implements the Mailer interface.
  - So FailoverSender class doesn't need to have two separate variables for each mailer. Instead it has one mailer variable which can represent Mailgun or SendGrid class. If one of them failed then immediately switch to other one.
  - Email controller should only have FailoverSender class to send an email, it doesn't need to know about which mailer is being used.
  - I tried to keep the principal single responsibility for each class.
